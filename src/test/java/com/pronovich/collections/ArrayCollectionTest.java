@@ -105,6 +105,36 @@ public class ArrayCollectionTest {
     }
 
     @Test
+    public void testToArrayWhenInputArrayHaveSizeOne() throws Exception {
+        final Collection<Integer> testInstance = new ArrayCollection<>();
+        testInstance.add(1);
+        testInstance.add(2);
+        testInstance.add(3);
+
+        final Integer[] input = new Integer[1];
+
+        final Integer[] result = testInstance.toArray(input);
+        assertNotEquals(input, result);
+        assertEquals((Integer)1, result[0]);
+        assertEquals((Integer)2, result[1]);
+        assertEquals((Integer)3, result[2]);
+        assertEquals(3, result.length);
+    }
+
+    @Test
+    public void testToArrayWhenInputArrayHaveCorrectSize() throws Exception {
+        final Collection<Integer> testInstance = new ArrayCollection<>();
+        testInstance.add(1);
+        testInstance.add(2);
+        testInstance.add(3);
+
+        final Integer[] input = new Integer[3];
+
+        final Integer[] result = testInstance.toArray(input);
+        assertEquals(input, result);
+    }
+
+    @Test
     public void testAdd() throws Exception {
         final Collection<Integer> testInstance = new ArrayCollection<>();
         for (int i = -10; i < 15; i++) {
@@ -298,4 +328,5 @@ public class ArrayCollectionTest {
         assertTrue(testInstance.isEmpty());
         assertEquals(0, testInstance.size());
     }
+
 }
