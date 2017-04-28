@@ -4,6 +4,8 @@ package com.pronovich.collections;
     The implementation of the Collection interface array-based.
 */
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -56,12 +58,14 @@ public class ArrayCollection<T> implements Collection<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T1[] newA = a;
         if (a.length < size) {
-            newA = (T1[]) new Object[size];
+            return (T1[]) Arrays.copyOf(m, size, a.getClass());
         }
-        System.arraycopy(m, 0, newA, 0, size);
-        return newA;
+        System.arraycopy(m, 0, a, 0, size);
+        if (a.length > size) {
+            a[size] = null;
+        }
+        return a;
     }
 
     @Override
