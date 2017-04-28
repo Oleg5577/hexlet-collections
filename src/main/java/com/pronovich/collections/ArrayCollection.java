@@ -6,7 +6,7 @@ package com.pronovich.collections;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ArrayCollection<T> implements Collection<T> {
 
@@ -80,22 +80,29 @@ public class ArrayCollection<T> implements Collection<T> {
         if (o == null) {
             for (int i=0; i < size; i++) {
                 if (m[i] == null) {
-                    System.arraycopy(m, i+1, m, i, size-i-1);
-                    size--;
+                    remove(i);
                     return true;
                 }
             }
         } else {
             for (int i = 0; i < size; i++) {
                 if (o.equals(m[i])) {
-                    System.arraycopy(m, i + 1, m, i, size - i - 1);
-                    size--;
+                    remove(i);
                     return true;
                 }
             }
         }
         return false;
     }
+
+    private void remove(final int index) {
+        if (index != this.size() - 1)
+            System.arraycopy(m, index + 1, m, index, this.size() - index - 1);
+        if (this.size() != 0) {
+            size--;
+        }
+    }
+
 
     @Override
     public boolean containsAll(final Collection<?> c) {
@@ -148,16 +155,30 @@ public class ArrayCollection<T> implements Collection<T> {
 
     private class ElementsIterator<T> implements Iterator<T> {
 
-        private int index = 0;
+        int index = 0;
+        int indexLastReturned = -1;
 
         @Override
         public boolean hasNext() {
-            return size > index;
+            return ArrayCollection.this.size > index;
         }
 
         @Override
         public T next() {
+            if (ArrayCollection.this.size <= index) {
+                throw new NoSuchElementException();
+            }
+            indexLastReturned = index;
             return (T) m[index++];
+        }
+
+        @Override
+        public void remove() {
+            if (indexLastReturned < 0) {
+                throw new IllegalStateException();
+            }
+            index--;
+            ArrayCollection.this.remove(indexLastReturned--);
         }
     }
 }
