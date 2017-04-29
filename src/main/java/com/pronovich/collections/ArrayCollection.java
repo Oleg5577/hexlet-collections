@@ -4,7 +4,6 @@ package com.pronovich.collections;
     The implementation of the Collection interface array-based.
 */
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
