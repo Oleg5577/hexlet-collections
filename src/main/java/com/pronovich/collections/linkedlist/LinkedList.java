@@ -350,6 +350,7 @@ public class LinkedList<T> implements List<T> {
             return element;
         }
 
+        //TODO
         @Override
         public void remove() {
             if (previousIndex < 0) {
@@ -369,6 +370,7 @@ public class LinkedList<T> implements List<T> {
             previous = null;
             previousIndex = -1;
         }
+
     }
 
     private static class Item<T> {
