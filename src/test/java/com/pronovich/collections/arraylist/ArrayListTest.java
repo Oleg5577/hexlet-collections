@@ -1,4 +1,4 @@
-package com.pronovich.collections.listiterator;
+package com.pronovich.collections.arraylist;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
-public class ListIteratorTest {
+public class ArrayListTest {
 
     private ArrayList <Integer> testInstance;
     private ListIterator<Integer> listIterator;
